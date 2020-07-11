@@ -29,7 +29,7 @@ COPY --from=protobuf /usr/local/bin/protoc /usr/local/bin/protoc
 
 COPY ./Makefile ./
 
-COPY temporal_service.proto ./
+COPY protos/ ./protos
 
 COPY ./gateway ./gateway
 
