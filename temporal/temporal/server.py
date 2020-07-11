@@ -28,16 +28,17 @@ class TemporalServiceServicer(temporal_service_pb2_grpc.TemporalServiceServicer)
     def TimexToAbsolute(self, request, context):
         logger = logging.getLogger("timex_to_abs")
 
+        tagged = tag(request.timex)
         base_time = datetime.now()
-        ground = ground(tagged, base_time)
-        
-        match = re.match(r"<TIMEX2 val=(.+)>(.+)<\/TIMEX2>")
+        grounded = ground(tagged, base_time)
+        logging.info(f"Grounded: {grounded}")
+        match = re.match(r"""<TIMEX2 val="(.+)">(.+)<\/TIMEX2>""", grounded)
 
-        logger.info(f"Grounded time: {match.group(1)}")
-        logger.info(f"Timex: {match.group(2)}")
+        value = match.group(1)
+        grounded_time = datetime.fromisoformat(value)
 
         return temporal_service_pb2.TimexToAbsoluteResponse(
-            input=request.timex, absoluteDateTime=0,
+            input=request.timex, absoluteDateTime=int(grounded_time.timestamp()),
         )
 
 
