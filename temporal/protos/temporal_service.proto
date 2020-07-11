@@ -4,7 +4,7 @@ package temporalservice;
 
 import "google/api/annotations.proto";
 
-option go_package = "temporalservice";
+option go_package = ".;temporalservice";
 
 // Definition of the temporal service interface.
 service TemporalService {
@@ -17,7 +17,7 @@ service TemporalService {
     };
 
     // Convert the given timex to an abolute date time.
-    rpc TimexToAbsolute(TimexToAbsoluteRequest)  returns (TimexToAbsoluteResponse) {
+    rpc TimexToAbsolute(TimexToAbsoluteRequest) returns (TimexToAbsoluteResponse) {
         option (google.api.http) = {
             post: "/absolute",
             body: "*"
