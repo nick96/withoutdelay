@@ -29,7 +29,7 @@ import (
   
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
-	mux := runtime.NewServeMux()
+	mux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true}))
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	log.Printf("Proxying to gRPC server at %s", *grpcServerEndpoint)
 	err := gw.RegisterTemporalServiceHandlerFromEndpoint(ctx, mux,  *grpcServerEndpoint, opts)
