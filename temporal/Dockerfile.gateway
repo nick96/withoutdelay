@@ -33,8 +33,6 @@ COPY protos/ ./protos
 
 COPY ./gateway ./gateway
 
-RUN make gw
-
 ENTRYPOINT ["protoc"]
 
 # TODO: This can be scratch but we have to pass the right flags into `go build`
