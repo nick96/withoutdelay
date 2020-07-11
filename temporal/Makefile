@@ -1,4 +1,4 @@
-GATEWAY_FLAGS := -I/usr/local/include -Iprotos
+GATEWAY_FLAGS := -I/usr/local/include -Iprotos/third_party/googleapis -Iprotos
 
 GRPC_FLAGS := --python_out=temporal --grpc_python_out=temporal
 
