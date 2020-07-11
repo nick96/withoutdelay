@@ -1,5 +1,3 @@
-# Based on https://hub.docker.com/r/grpc/go/dockerfile except using go1.14 and adding stuff
-# to build the GRPC gateway.
 FROM golang:1.14 as protobuf
 
 WORKDIR /gw
@@ -7,7 +5,7 @@ WORKDIR /gw
 # install protobuf from source
 RUN apt-get update && \
     apt-get -y install git unzip build-essential autoconf libtool
-RUN git clone https://github.com/google/protobuf.git && \
+RUN git clone --depth=1 https://github.com/google/protobuf.git && \
     cd protobuf && \
     ./autogen.sh && \
     ./configure && \
@@ -27,6 +25,8 @@ RUN go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 RUN go get -u google.golang.org/grpc
 RUN go get -u github.com/golang/protobuf/protoc-gen-go
 
+COPY --from=protobuf /usr/local/bin/protoc /usr/local/bin/protoc
+
 COPY ./Makefile ./
 
 COPY temporal_service.proto ./
@@ -34,6 +34,8 @@ COPY temporal_service.proto ./
 COPY ./gateway ./gateway
 
 RUN make gw
+
+ENTRYPOINT ["protoc"]
 
 # TODO: This can be scratch but we have to pass the right flags into `go build`
 # and I cbf right now.
@@ -43,4 +45,4 @@ WORKDIR /gw
 
 COPY --from=builder /gw/gateway/gateway ./gateway
 
-ENTRYPOINT ./gateway
+ENTRYPOINT ["./gateway"]
