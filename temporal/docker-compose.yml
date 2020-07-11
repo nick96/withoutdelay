@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    command: "-port 8080 -grpc-server-endpoint temporal:8000"
+    ports:
+      - "8080:8080"
+
+  temporal:
+    build:
+      context: .
+      dockerfile: Dockerfile
