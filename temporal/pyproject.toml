@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "temporal"
+version = "0.0.1"
+description = "Service for tagging temporal expressions and converting them to absolute date times."
+authors = ["Nick Spain <nicholas.spain@stileeducation.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^4.6"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
