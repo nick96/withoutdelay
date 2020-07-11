@@ -9,18 +9,18 @@ import grpc
 
 from temporal import temporal_service_pb2
 from temporal import temporal_service_pb2_grpc
-from temporal import timex
+from temporal.timex import tag, ground
 
 
 class TemporalServiceServicer(temporal_service_pb2_grpc.TemporalServiceServicer):
     """Implementation of GRPC service methods."""
 
     def TagTimex(self, request, context):
-        tagged = timex.tag(request.text)
+        tagged = tag(request.text)
         timex_matches = re.finditer(r"<TIMEX2>(.+)<\/TIMEX2>", tagged)
         for timex_match in timex_matches:
             timex = timex_match.group(1)
-            pos = timex_match.pos + len("<TIMEX2>")
+            pos = timex_match.pos
             yield temporal_service_pb2.TimexTag(
                 timex=timex, pos=pos,
             )
@@ -28,9 +28,8 @@ class TemporalServiceServicer(temporal_service_pb2_grpc.TemporalServiceServicer)
     def TimexToAbsolute(self, request, context):
         logger = logging.getLogger("timex_to_abs")
 
-        tagged = timex.tag(request.txt)
         base_time = datetime.now()
-        ground = timex.ground(tagged, base_time)
+        ground = ground(tagged, base_time)
         
         match = re.match(r"<TIMEX2 val=(.+)>(.+)<\/TIMEX2>")
 
