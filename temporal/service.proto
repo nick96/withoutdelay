@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package tempoeralservice;
+
+// Definition of the temporal service interface.
+service TemporalService {
+    // Tag timexs in the given text..
+    rpc TagTimex(TagTimexRequest) returns (stream TimeTag) {};
+
+    // Convert the given timex to an abolute date time.
+    rpc TimexToAbsolute(TimeToAbsoluteRequest)  returns (TimexToAbsoluteResponse) {};
+}
+
+message TagTimexRequest {
+    // Text to tag the timexes in.
+    required string text = 1;
+}
+
+message TimeTag {
+    // Timex being tagged.
+    required string timex = 1;
+    // Position the timex starts at in the text.
+    required int32 pos = 2;
+}
+
+message TimexToAbsoluteRequest {
+    // Timex to convert to an absolute time.
+    required string timex = 1;
+}
+
+message TimexToAbsoluteResponse {
+    // Timex given in the request.
+    required string input = 1;
+    // Unix timestamp of the absolute time for the given timex input.
+    required int64 absoluteDateTime = 2;
+}
