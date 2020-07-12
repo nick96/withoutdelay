@@ -3,7 +3,7 @@
 from concurrent import futures
 import logging
 import re
-from datetime import datetime
+import datetime
 
 import grpc
 
@@ -29,13 +29,13 @@ class TemporalServiceServicer(temporal_service_pb2_grpc.TemporalServiceServicer)
         logger = logging.getLogger("timex_to_abs")
 
         tagged = tag(request.timex)
-        base_time = datetime.now()
+        base_time = datetime.date.fromtimestamp(request.baseTime)
         grounded = ground(tagged, base_time)
         logging.info(f"Grounded: {grounded}")
         match = re.match(r"""<TIMEX2 val="(.+)">(.+)<\/TIMEX2>""", grounded)
 
         value = match.group(1)
-        grounded_time = datetime.fromisoformat(value)
+        grounded_time = datetime.datetime.fromisoformat(value)
 
         return temporal_service_pb2.TimexToAbsoluteResponse(
             input=request.timex, absoluteDateTime=int(grounded_time.timestamp()),

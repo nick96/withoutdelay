@@ -40,6 +40,8 @@ message TimexTag {
 message TimexToAbsoluteRequest {
     // Timex to convert to an absolute time.
     string timex = 1;
+    // Time to ground from (i.e. current time)
+    int64 baseTime = 2;
 }
 
 message TimexToAbsoluteResponse {
