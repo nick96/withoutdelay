@@ -3,3 +3,4 @@ temporal/gateway/gateway
 temporal/gateway/gen/go/temporal_service.pb.go
 temporal/gateway/gen/go/temporal_service.pb.gw.go
 temporal/gateway/gen/go/temporal_service.swagger.json
+.env
