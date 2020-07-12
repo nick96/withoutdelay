@@ -2,6 +2,13 @@ GATEWAY_FLAGS := -I/usr/local/include -Iprotos/third_party/googleapis -Iprotos
 
 GRPC_FLAGS := --python_out=temporal --grpc_python_out=temporal
 
+lint:
+	poetry run black --check .
+	poetry run mypy temporal
+
+test:
+	poetry run pytest
+
 server-protos:
 	poetry run python -m grpc_tools.protoc $(GRPC_FLAGS) $(GATEWAY_FLAGS) protos/*.proto
 
