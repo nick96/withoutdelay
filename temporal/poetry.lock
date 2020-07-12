@@ -148,6 +148,18 @@ version = "1.30.0"
 six = ">=1.5.2"
 
 [[package]]
+category = "dev"
+description = "Testing utilities for gRPC Python"
+name = "grpcio-testing"
+optional = false
+python-versions = "*"
+version = "1.30.0"
+
+[package.dependencies]
+grpcio = ">=1.30.0"
+protobuf = ">=3.6.0"
+
+[[package]]
 category = "main"
 description = "Protobuf code generator for gRPC"
 name = "grpcio-tools"
@@ -511,7 +523,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "5939c5e48d102192e6339954540bf1e50bb7c9dd761a946c56594e4d0ddeb5ac"
+content-hash = "7e5dc0de6a4d3a5ba4d558ab71593033339206f752188b92b777432077f4e636"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -599,6 +611,9 @@ grpcio = [
     {file = "grpcio-1.30.0-cp38-cp38-win32.whl", hash = "sha256:7f264d740906655a147448d57e4422723639d2d3f891734b8d5eb1675cb47192"},
     {file = "grpcio-1.30.0-cp38-cp38-win_amd64.whl", hash = "sha256:31e9891ac742e6866aec0cf67f1892618982cfbaf08bdcf3bb2e0f0828530c38"},
     {file = "grpcio-1.30.0.tar.gz", hash = "sha256:e8f2f5d16e0164c415f1b31a8d9a81f2e4645a43d1b261375d6bab7b0adf511f"},
+]
+grpcio-testing = [
+    {file = "grpcio-testing-1.30.0.tar.gz", hash = "sha256:fd2951a1cd06c0137584f63a00091928df2bfb825207c6457b984336a85cd59b"},
 ]
 grpcio-tools = [
     {file = "grpcio-tools-1.30.0.tar.gz", hash = "sha256:7878adb93b0c1941eb2e0bed60719f38cda2ae5568bc0bcaa701f457e719a329"},
