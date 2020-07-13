@@ -8,7 +8,6 @@ resources:
 jobs:
     - name: lint
       plan:
-      - get: python3.8-environment
       - get: temporal-source
         trigger: true
       - task: lint
