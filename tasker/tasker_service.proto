@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package tasker;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/nick96/withoutdelay/tasker/taskserpb";
+
+service TaskerService {
+    rpc Get (GetTaskRequest) returns (stream Task);
+
+    rpc Add (AddTaskRequest) returns (Task);
+
+    rpc Update (UpdateTaskRequest) returns (Task);
+
+    rpc DeleteByID (DeleteTaskRequest) returns (Task);
+}
+
+message GetTaskRequest {
+    string name = 1;
+    repeated string tag = 2;
+    repeated string project = 3;
+    repeated string label = 4;
+}
+
+message AddTaskRequest {
+    string name = 1;
+    repeated string tag = 2;
+    repeated string project = 3;
+    repeated string label = 4;
+}
+
+message UpdateTaskRequest {
+    string name = 1;
+    repeated string tag = 2;
+    repeated string project = 3;
+    repeated string label = 4;
+}
+
+message DeleteTaskRequest {
+    int64 id = 1;
+}
+
+message Task {
+    int64 id = 1;
+    string name = 2;
+    repeated string tag = 3;
+    repeated string project = 4;
+    repeated string label = 5;
+}
