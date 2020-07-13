@@ -15,6 +15,11 @@ def to_start_of_day(dt: datetime) -> datetime:
     date = dt.date()
     return datetime.combine(date, datetime.min.time())
 
+def to_start_of_next_week(dt: datetime) -> datetime:
+    date = dt.date()
+    day_of_week = date.weekday()
+    dt += timedelta(days=7-day_of_week)
+    return datetime.combine(dt.date(), datetime.min.time())
 
 @pytest.fixture(scope="module")
 def server():
@@ -48,6 +53,14 @@ def take_all_responses(method: grpc_testing.UnaryStreamServerRpc) -> List[Any]:
         (
             "yesterday I went to the shops",
             [temporal_service_pb2.TimexTag(timex="yesterday", pos=0,)],
+        ),
+        (
+            "feed the cat tomorrow at 1pm",
+            [temporal_service_pb2.TimexTag(timex="tomorrow at 1pm", pos=14)],
+        ),
+        (
+            "take the bins out every tuesday",
+            [temporal_service_pb2.TimexTag(timex="every tuesday", pos=19)],
         ),
     ),
 )
@@ -83,6 +96,19 @@ def test_tag_timex(text, expected_tags, server):
                 ),
             ),
         ),
+        (
+            "every day",
+            temporal_service_pb2.TimexToAbsoluteResponse(
+                input="every day", absoluteDateTime=int(to_start_of_day(BASE_TIME).timestamp())
+            ),
+        ),
+        (
+            "every week",
+            temporal_service_pb2.TimexToAbsoluteResponse(
+                input="every week",
+                absoluteDateTime=int(to_start_of_next_week(BASE_TIME).timestamp())
+            )
+        )
     ),
 )
 def test_timex_to_absolute_time(timex, tag, server):
