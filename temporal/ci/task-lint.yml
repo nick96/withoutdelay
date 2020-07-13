@@ -13,3 +13,4 @@ run:
     path: make
     args:
     - lint
+    dir: temporal-source/temporal
