@@ -54,4 +54,3 @@ def serve():
     server.start()
     logger.info(f"Started on port {port}")
     server.wait_for_termination()
-

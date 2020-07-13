@@ -10,6 +10,7 @@ from temporal.server import TemporalServiceServicer
 
 BASE_TIME = datetime.now()
 
+
 def to_start_of_day(dt: datetime) -> datetime:
     date = dt.date()
     return datetime.combine(date, datetime.min.time())
@@ -85,7 +86,9 @@ def test_tag_timex(text, expected_tags, server):
     ),
 )
 def test_timex_to_absolute_time(timex, tag, server):
-    request = temporal_service_pb2.TimexToAbsoluteRequest(timex=timex, baseTime=int(BASE_TIME.timestamp()))
+    request = temporal_service_pb2.TimexToAbsoluteRequest(
+        timex=timex, baseTime=int(BASE_TIME.timestamp())
+    )
     method = server.invoke_unary_unary(
         method_descriptor=temporal_service_pb2.DESCRIPTOR.services_by_name[
             "TemporalService"

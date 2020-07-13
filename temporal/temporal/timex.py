@@ -342,4 +342,3 @@ def ground(tagged_text, base_date):
         )
 
     return tagged_text
-
