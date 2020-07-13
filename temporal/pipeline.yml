@@ -4,6 +4,8 @@ resources:
   type: git
   source:
     uri: https://github.com/nick96/withoutdelay.git
+    paths:
+    - temporal
 
 jobs:
     - name: lint
