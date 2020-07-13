@@ -1,0 +1,12 @@
+---
+platform: linux
+inputs: 
+  - name: source
+  - name: go-environment
+run:
+    path: /bin/sh
+    args:
+    - -c
+    - |
+      cd go-environment/tasker
+      go vet ./...
