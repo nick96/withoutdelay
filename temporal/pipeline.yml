@@ -3,20 +3,22 @@ resources:
 - name: python3.8-environment
   type: docker-image
   source:
-    repository: "python:3.8"
+    repository: python
+    tag: "3.8"
 - name: temporal-source
   type: git
   source:
-    uri: https://github.com/nick96/withoutdelay
+    uri: https://github.com/nick96/withoutdelay.git
 
 jobs:
     - name: lint
       plan:
       - get: python3.8-environment
       - get: temporal-source
+        trigger: true
       - task: lint
-        file: withoutdelay/temporal/ci/task-lint.yml
+        file: temporal-source/temporal/ci/task-lint.yml
       - task: test
-        file: withoutdelay/temporal/ci/task-test.yml
+        file: temporal-source/temporal/ci/task-lint.yml
         
           
