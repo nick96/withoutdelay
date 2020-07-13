@@ -1,5 +1,10 @@
 ---
 platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: "1.14"
 inputs: 
   - name: source
   - name: go-environment
