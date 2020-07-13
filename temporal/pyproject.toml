@@ -14,7 +14,6 @@ googleapis-common-protos = "^1.52.0"
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
 pylint = "^2.5.3"
-mypy = "^0.782"
 black = {version = "^19.10b0", allow-prereleases = true}
 ipython = "^7.16.1"
 grpcio-testing = "^1.30.0"
